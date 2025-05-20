@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+enum Class {
+  FRESHMAN
+  SOPHOMORE
+  JUNIOR
+  SENIOR
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Games {
+  date       DateTime     @id
+  opponent   String
+  guestPrice Int?
+  SportsPass SportsPass[]
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String?
+  email          String?  @unique
+  phone          String?
+  seller         Boolean? @default(false)
+  classification Class?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  soldPasses   SportsPass[] @relation("SoldRelation")
+  boughtPasses SportsPass[] @relation("BuyerRelation")
+}
+
+model SportsPass {
+  id       String   @id @default(cuid())
+  price    Int
+  gameDate DateTime
+  game     Games    @relation(fields: [gameDate], references: [date])
+
+  sellerId String
+  seller   User   @relation("SoldRelation", fields: [sellerId], references: [id])
+
+  buyerId String?
+  buyer   User?   @relation("BuyerRelation", fields: [buyerId], references: [id])
+}
