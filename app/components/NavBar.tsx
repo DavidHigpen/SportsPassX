@@ -1,9 +1,38 @@
-import React from 'react'
+"use client";
 
-const NavBar = () => {
+import { useState } from "react";
+
+export default function NavBar() {
+  // export default function Navbar({ loggedIn }) {
+
+  let loggedIn = true;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
-    <div>NavBar</div>
-  )
+    <div className="navbar bg-base-100 shadow-sm">
+      <div className="flex-1">
+        <a href="/" className="btn btn-ghost text-xl">SportsPassX</a>
+      </div>
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <a href="createListing">Create Listing</a>
+          </li>
+          <li>
+            <details>
+              <summary>Parent</summary>
+              <ul className="bg-base-100 rounded-t-none p-2">
+                <li>
+                  <a>Link 1</a>
+                </li>
+                <li>
+                  <a>Link 2</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
 }
-
-export default NavBar
