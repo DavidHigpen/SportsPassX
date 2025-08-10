@@ -1,12 +1,16 @@
 import NavBar from "./components/NavBar";
 import Toggle from "./components/Toggle";
+import HeroTitle from "./components/HeroTitle";
+import { getUserSession } from "@/lib/session";
 
-export default function Home() {
+export default async function Home() {
+  const user = await getUserSession()
+
   return (
-    <div>
-      <NavBar />
-      <Toggle />
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <div>
+        <HeroTitle />
+      </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import CreateListingField from "../components/CreateListingField";
 import NavBar from "../components/NavBar";
-import ShrinkingHeader from "../components/ShrinkingHeader";
+import SplitHeader from "../components/SplitHeader";
 
 import { prisma } from "@/lib/db";
 export default async function CreateListing() {
@@ -15,9 +15,9 @@ export default async function CreateListing() {
   return (
     <>
       <NavBar />
-      <ShrinkingHeader shrinkingTitle="Create Listing">
+      <SplitHeader pageTitle="Create Listing">
         <CreateListingField gameList={gamesFromDB}/>
-      </ShrinkingHeader>
+      </SplitHeader>
     </>
   );
 };
